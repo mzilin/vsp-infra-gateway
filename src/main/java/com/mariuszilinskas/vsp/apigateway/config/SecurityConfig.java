@@ -20,13 +20,14 @@ public class SecurityConfig {
     private final CorsConfigurationSource corsConfigurationSource;
 
     @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        return http
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity httpSecurity) {
+        return httpSecurity
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(authorize -> authorize
-                        .pathMatchers(AppUtils.permitAllPaths.toArray(new String[0])).permitAll()
-                        .pathMatchers("/admin/**").hasAuthority(UserRole.ROLE_ADMIN.name())
+                        .pathMatchers(AppUtils.getPublicAccessPaths().toArray(new String[0])).permitAll()
+                        .pathMatchers(AppUtils.getAdminOnlyPaths().toArray(new String[0]))
+                            .hasAuthority(UserRole.ROLE_ADMIN.name())
                         .anyExchange().authenticated()
                 )
                 .build();
