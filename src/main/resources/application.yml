@@ -54,6 +54,9 @@ management:
       exposure:
         include: info, health, refresh, shutdown, gateway
 
+app:
+  allowedOrigins: ${ALLOWED_ORIGINS}
+
 # Logging properties
 logging:
   level:
