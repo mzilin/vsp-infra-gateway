@@ -6,9 +6,7 @@ import com.mariuszilinskas.vsp.apigateway.util.AppUtils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.lang.NonNull;
@@ -22,7 +20,6 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +43,7 @@ public class AuthenticationFilter implements WebFilter {
         var payloadOpt = jwtService.extractPayload(exchange);
         if (payloadOpt.isEmpty()) {
             logger.error("Access token is missing for a protected path");
-            return onError(exchange, "Access token is required", HttpStatus.UNAUTHORIZED);
+            return onError(exchange, HttpStatus.UNAUTHORIZED);
         }
 
         JwtPayload payload = payloadOpt.get();
@@ -76,12 +73,10 @@ public class AuthenticationFilter implements WebFilter {
         return authorities;
     }
 
-    private Mono<Void> onError(ServerWebExchange exchange, String message, HttpStatus httpStatus) {
+    private Mono<Void> onError(ServerWebExchange exchange, HttpStatus httpStatus) {
         ServerHttpResponse response = exchange.getResponse();
-        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         response.setStatusCode(httpStatus);
-        DataBuffer dataBuffer = response.bufferFactory().wrap(message.getBytes(StandardCharsets.UTF_8));
-        return response.writeWith(Mono.just(dataBuffer)).then(response.setComplete());
+        return response.setComplete();
     }
 
 }
