@@ -60,7 +60,7 @@ public class JwtServiceImpl implements JwtService {
                 .orElse(null);
     }
 
-    private List<String> safelyExtractListFromClaims(Map<String, Object> claims, String claimKey) {
+    protected List<String> safelyExtractListFromClaims(Map<String, Object> claims, String claimKey) {
         Object claimValue = claims.get(claimKey);
         if (claimValue instanceof List<?> rawList) {
             return rawList.stream()
