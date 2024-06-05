@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface JwtService {
 
-    Optional<JwtPayload> verify(ServerWebExchange exchange);
+    Optional<JwtPayload> extractPayload(ServerWebExchange exchange);
 
 }

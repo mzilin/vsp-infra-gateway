@@ -30,7 +30,8 @@ public class JwtServiceImpl implements JwtService {
     @Value("${app.accessTokenSecret}")
     private String accessTokenSecret;
 
-    public Optional<JwtPayload> verify(ServerWebExchange exchange) {
+    @Override
+    public Optional<JwtPayload> extractPayload(ServerWebExchange exchange) {
         String token = extractAccessToken(exchange);
 
         if (token != null && !token.isBlank()) {
