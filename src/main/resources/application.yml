@@ -51,6 +51,7 @@ management:
 
 app:
   allowedOrigins: ${ALLOWED_ORIGINS}
+  accessTokenSecret: ${ACCESS_TOKEN_SECRET}
 
 # Logging properties
 logging:
