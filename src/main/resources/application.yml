@@ -37,9 +37,6 @@ eureka:
     preferIpAddress: true
 
 # Management properties
-endpoints:
-  shutdown:
-    enabled: true
 management:
   info:
     env:
@@ -47,17 +44,18 @@ management:
   endpoint:
     gateway:
       enabled: true
-    shutdown:
-      enabled: true
   endpoints:
     web:
       exposure:
-        include: info, health, refresh, shutdown, gateway
+        include: info, health, refresh, gateway
+
+app:
+  allowedOrigins: ${ALLOWED_ORIGINS}
+  accessTokenSecret: ${ACCESS_TOKEN_SECRET}
 
 # Logging properties
 logging:
   level:
-    root: ERROR
-    com.proactivetechie: INFO
-    org.springframework: INFO
-    org.hibernate: INFO
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
