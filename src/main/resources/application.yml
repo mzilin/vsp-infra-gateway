@@ -52,6 +52,7 @@ management:
 app:
   allowedOrigins: ${ALLOWED_ORIGINS}
   accessTokenSecret: ${ACCESS_TOKEN_SECRET}
+  frontendBaseUrl: ${FRONTEND_BASE_URL}
 
 # Logging properties
 logging:
