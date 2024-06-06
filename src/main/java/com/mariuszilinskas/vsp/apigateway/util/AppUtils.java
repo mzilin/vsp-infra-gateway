@@ -36,8 +36,11 @@ public abstract class AppUtils {
     }
 
     public static Predicate<ServerHttpRequest> isPublicPath =
-            request -> getPublicAccessPaths().stream()
-                    .map(uri -> uri.endsWith("/**") ? uri.substring(0, uri.length() - 2) : uri)
-                    .anyMatch(uri -> !"/".equals(uri) && request.getURI().getPath().contains(uri));
+            request -> {
+                String path = request.getURI().getPath();
+                return getPublicAccessPaths().stream()
+                        .map(uri -> uri.endsWith("/**") ? uri.substring(0, uri.length() - 2) : uri)
+                        .anyMatch(uri -> path.equals(uri) || path.startsWith(uri + "/"));
+            };
 
 }
