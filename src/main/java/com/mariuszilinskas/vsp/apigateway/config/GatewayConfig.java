@@ -1,5 +1,6 @@
 package com.mariuszilinskas.vsp.apigateway.config;
 
+import com.mariuszilinskas.vsp.apigateway.util.AppUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -14,6 +15,8 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class GatewayConfig {
 
+    private static final String API_PREFIX = AppUtils.API_PREFIX;
+
     @Value("${app.frontendBaseUrl}")
     private String frontendBaseUrl;
 
@@ -23,13 +26,13 @@ public class GatewayConfig {
                 .route(p -> p
                         .path("/")
                         .filters(f -> f.redirect(302, frontendBaseUrl))
-                        .uri("lb://DUMMY"))
+                        .uri("lb://HOME"))
                 .route(p -> p
-                        .path("/auth/**")
+                        .path(API_PREFIX + "/auth/**")
                         .filters(f -> applyServiceFilters(f, "/auth/(?<segment>.*)"))
                         .uri("lb://AUTH"))
                 .route(p -> p
-                        .path("/users/**")
+                        .path(API_PREFIX + "/users/**")
                         .filters(f -> applyServiceFilters(f, "/users/(?<segment>.*)"))
                         .uri("lb://USERS"))
                 .build();
@@ -37,7 +40,7 @@ public class GatewayConfig {
 
     private GatewayFilterSpec applyServiceFilters(GatewayFilterSpec filterSpec, String path) {
         return filterSpec
-                .rewritePath(path, "/${segment}")
+                .rewritePath(API_PREFIX + path, "/${segment}")
                 .removeRequestHeader("Authorization")
                 .addResponseHeader("X-Response-Time", new Date().toString());
     }
