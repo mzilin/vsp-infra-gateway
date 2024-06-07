@@ -28,7 +28,6 @@ import java.util.List;
 public class AuthenticationFilter implements WebFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
-
     private final JwtService jwtService;
 
     @NonNull

@@ -18,11 +18,8 @@ public class ErrorResponse {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppUtils.TIMESTAMP_FORMAT)
     private final ZonedDateTime timestamp;
-
     private final int status;
-
     private final String error;
-
     private final String message;
 
     /**

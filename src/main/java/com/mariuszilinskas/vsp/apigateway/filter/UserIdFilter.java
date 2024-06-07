@@ -20,7 +20,6 @@ import java.util.UUID;
 public class UserIdFilter implements WebFilter, Ordered {
 
     private static final Logger logger = LoggerFactory.getLogger(UserIdFilter.class);
-
     private final JwtServiceImpl jwtService;
     private static final String USER_ID = AppUtils.USER_ID;
 
