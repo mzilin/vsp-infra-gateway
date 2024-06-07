@@ -31,14 +31,20 @@ public abstract class AppUtils {
             "/users/password/reset"
     );
 
-    public static List<String> getPublicAccessPaths() {
-        return publicAccessPaths;
+    public static String[] getPublicAccessPaths() {
+        return publicAccessPaths.toArray(new String[0]);
+    }
+
+    public static String[] getAdminAccessPaths() {
+        return List.of(
+                "/users/admin/**"
+        ).toArray(new String[0]);
     }
 
     public static Predicate<ServerHttpRequest> isPublicPath =
             request -> {
                 String path = request.getURI().getPath();
-                return getPublicAccessPaths().stream()
+                return publicAccessPaths.stream()
                         .map(uri -> uri.endsWith("/**") ? uri.substring(0, uri.length() - 2) : uri)
                         .anyMatch(uri -> path.equals(uri) || path.startsWith(uri + "/"));
             };
