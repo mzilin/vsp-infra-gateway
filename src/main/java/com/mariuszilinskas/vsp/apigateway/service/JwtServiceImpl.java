@@ -50,7 +50,8 @@ public class JwtServiceImpl implements JwtService {
         return Optional.empty();
     }
 
-    private String extractAccessToken(ServerWebExchange exchange) {
+    @Override
+    public String extractAccessToken(ServerWebExchange exchange) {
         return exchange.getRequest()
                 .getCookies()
                 .getOrDefault(AppUtils.ACCESS_TOKEN_NAME, Collections.emptyList())
@@ -69,6 +70,21 @@ public class JwtServiceImpl implements JwtService {
                     .collect(Collectors.toList());
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public UUID extractUserId(ServerWebExchange exchange) {
+        String token = extractAccessToken(exchange);
+
+        if (token == null || token.isBlank())
+            throw new JwtTokenValidationException();
+
+        Claims claims = extractClaims(token);
+        try {
+            return UUID.fromString(claims.getSubject());
+        } catch (IllegalArgumentException ex) {
+            throw new JwtTokenValidationException();
+        }
     }
 
     private Claims extractClaims(String token) {
