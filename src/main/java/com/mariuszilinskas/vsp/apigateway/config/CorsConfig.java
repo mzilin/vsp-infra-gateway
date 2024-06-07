@@ -38,4 +38,5 @@ public class CorsConfig {
     public CorsWebFilter corsWebFilter(CorsConfigurationSource corsConfigurationSource) {
         return new CorsWebFilter(corsConfigurationSource);
     }
+
 }
