@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(authorize -> authorize
                         .pathMatchers(AppUtils.getPublicAccessPaths()).permitAll()
-                        .pathMatchers(AppUtils.getAdminAccessPaths()).hasAuthority(UserRole.ADMIN.name())
+                        .pathMatchers(AppUtils.getAdminAccessPaths()).hasRole(UserRole.ADMIN.name())
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
