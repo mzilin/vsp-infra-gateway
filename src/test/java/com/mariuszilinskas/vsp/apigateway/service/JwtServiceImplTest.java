@@ -1,6 +1,8 @@
 package com.mariuszilinskas.vsp.apigateway.service;
 
 import com.mariuszilinskas.vsp.apigateway.dto.JwtPayload;
+import com.mariuszilinskas.vsp.apigateway.enums.UserAuthority;
+import com.mariuszilinskas.vsp.apigateway.enums.UserRole;
 import com.mariuszilinskas.vsp.apigateway.exception.JwtTokenValidationException;
 import com.mariuszilinskas.vsp.apigateway.util.AppUtils;
 import com.mariuszilinskas.vsp.apigateway.util.TestUtils;
@@ -70,8 +72,8 @@ public class JwtServiceImplTest {
         assertTrue(response.isPresent());
         JwtPayload payload = response.get();
         assertEquals(userId.toString(), payload.userId());
-        assertEquals(List.of("USER", "ADMIN"), payload.roles());
-        assertEquals(List.of("MANAGE_SETTINGS"), payload.authorities());
+        assertEquals(List.of(UserRole.USER.name(), UserRole.ADMIN.name()), payload.roles());
+        assertEquals(List.of(UserAuthority.MANAGE_SETTINGS.name()), payload.authorities());
         assertEquals(new Date(3295380670000L), payload.expiry());
     }
 
@@ -92,8 +94,8 @@ public class JwtServiceImplTest {
     void testSafelyExtractListFromClaims() {
         // Arrange
         Map<String, Object> claims = Map.of(
-                "roles", List.of("USER", "ADMIN"),
-                "authorities", List.of("MANAGE_SETTINGS")
+                "roles", List.of(UserRole.USER.name(), UserRole.ADMIN.name()),
+                "authorities", List.of(UserAuthority.MANAGE_SETTINGS.name())
         );
 
         // Act
@@ -101,8 +103,8 @@ public class JwtServiceImplTest {
         List<String> authorities = jwtService.safelyExtractListFromClaims(claims, "authorities");
 
         // Assert
-        assertEquals(List.of("USER", "ADMIN"), roles);
-        assertEquals(List.of("MANAGE_SETTINGS"), authorities);
+        assertEquals(List.of(UserRole.USER.name(), UserRole.ADMIN.name()), roles);
+        assertEquals(List.of(UserAuthority.MANAGE_SETTINGS.name()), authorities);
     }
 
     // ------------------------------------
