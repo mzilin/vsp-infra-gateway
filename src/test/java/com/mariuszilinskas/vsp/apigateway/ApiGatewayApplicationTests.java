@@ -4,7 +4,7 @@ import com.mariuszilinskas.vsp.apigateway.config.CorsConfig;
 import com.mariuszilinskas.vsp.apigateway.config.GatewayConfig;
 import com.mariuszilinskas.vsp.apigateway.config.SecurityConfig;
 import com.mariuszilinskas.vsp.apigateway.filter.AuthenticationFilter;
-import com.mariuszilinskas.vsp.apigateway.service.JwtService;
+import com.mariuszilinskas.vsp.apigateway.service.JwtServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +27,7 @@ class ApiGatewayApplicationTests {
     private AuthenticationFilter authenticationFilter;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceImpl jwtService;
 
     @Test
     void contextLoads() {
