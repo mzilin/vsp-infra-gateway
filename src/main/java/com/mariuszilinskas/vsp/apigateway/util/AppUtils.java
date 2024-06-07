@@ -17,6 +17,8 @@ public abstract class AppUtils {
 
     public static final String ACCESS_TOKEN_NAME = "vsp_access";
 
+    public static final String USER_ID = "_USER_ID_";
+
     // ------------------------------------------------------
 
     private static final List<String> publicAccessPaths = List.of(
