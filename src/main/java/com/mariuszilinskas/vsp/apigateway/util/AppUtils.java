@@ -4,6 +4,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public abstract class AppUtils {
 
@@ -35,19 +36,27 @@ public abstract class AppUtils {
             "/users/password/reset"
     );
 
+    private static final List<String> adminAccessPaths = List.of(
+            "/users/admin/**"
+    );
+
     public static String[] getPublicAccessPaths() {
-        return publicAccessPaths.toArray(new String[0]);
+        return prefixPaths(publicAccessPaths, true);
     }
 
     public static String[] getAdminAccessPaths() {
-        return List.of(
-                "/users/admin/**"
-        ).toArray(new String[0]);
+        return prefixPaths(adminAccessPaths, false);
+    }
+
+    private static String[] prefixPaths(List<String> paths, boolean skipRoot) {
+        return paths.stream()
+                .map(path -> (skipRoot && "/".equals(path)) ? path : AppUtils.API_PREFIX + path)
+                .toArray(String[]::new);
     }
 
     public static Predicate<ServerHttpRequest> isPublicPath =
             request -> {
-                String path = request.getURI().getPath();
+                String path = request.getURI().getPath().replace(API_PREFIX, "");
                 return publicAccessPaths.stream()
                         .map(uri -> uri.endsWith("/**") ? uri.substring(0, uri.length() - 2) : uri)
                         .anyMatch(uri -> path.equals(uri) || path.startsWith(uri + "/"));
