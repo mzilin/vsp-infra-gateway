@@ -15,8 +15,6 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class GatewayConfig {
 
-    private static final String API_PREFIX = AppUtils.API_PREFIX;
-
     @Value("${app.frontendBaseUrl}")
     private String frontendBaseUrl;
 
@@ -28,11 +26,11 @@ public class GatewayConfig {
                         .filters(f -> f.redirect(302, frontendBaseUrl))
                         .uri("lb://HOME"))
                 .route(p -> p
-                        .path(API_PREFIX + "/auth/**")
+                        .path(AppUtils.API_PREFIX + "/auth/**")
                         .filters(f -> applyServiceFilters(f, "/auth/(?<segment>.*)"))
                         .uri("lb://AUTH"))
                 .route(p -> p
-                        .path(API_PREFIX + "/users/**")
+                        .path(AppUtils.API_PREFIX + "/users/**")
                         .filters(f -> applyServiceFilters(f, "/users/(?<segment>.*)"))
                         .uri("lb://USERS"))
                 .build();
@@ -40,7 +38,7 @@ public class GatewayConfig {
 
     private GatewayFilterSpec applyServiceFilters(GatewayFilterSpec filterSpec, String path) {
         return filterSpec
-                .rewritePath(API_PREFIX + path, "/${segment}")
+                .rewritePath(AppUtils.API_PREFIX + path, "/${segment}")
                 .removeRequestHeader("Authorization")
                 .addResponseHeader("X-Response-Time", new Date().toString());
     }
