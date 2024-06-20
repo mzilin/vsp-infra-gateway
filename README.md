@@ -7,23 +7,24 @@ The `API Gateway` is an integral component of the `Video Streaming Platform`, re
 This server utilises a comprehensive suite of technologies and dependencies, ensuring robust and scalable functionality:
 
 - **Spring Boot** `3.2.5`:
-    - **Actuator**: Monitors and manages the app.
-    - **Security**: Provides authentication and authorisation mechanisms for the application.
-    - **Webflux**: Offers a non-blocking, reactive programming model for building reactive web applications.
+  - **Actuator**: Monitors and manages the application, providing insights into runtime operations and health.
+  - **Security**: Provides authentication and authorisation mechanisms for the application, helping to secure endpoints and manage user access effectively.
+  - **Validation**: Ensures that incoming data meets the application's expectations, crucial for maintaining data integrity and proper functioning.
+  - **Webflux**: Enables building scalable, non-blocking web applications using a reactive programming model.
 
 - **Spring Cloud** `2023.0.1`:
-    - **Gateway**: Provides a flexible way to route and secure API requests to microservices.
-    - **Config**: Manages externalised configuration.
-    - **Netflix Eureka Client**: Allows this microservice to register with a Eureka server.
+  - **Gateway**: Acts as an intelligent, configurable router for API requests, directing traffic to various microservices.
+  - **Config**: Manages externalised configuration, allowing applications to fetch their settings from a centralized source.
+  - **Netflix Eureka Client**: Enables the microservice to register with a Eureka server for service discovery.
 
 - **Java** `JDK 17`: Essential for secure, portable, high-performance software development.
 
-- **Lombok**: Simplifies the codebase by reducing boilerplate.
+- **Lombok**: Reduces boilerplate in Java code significantly, automating the generation of getters, setters, constructors, and other common methods.
 
 
 ### Dependency Management
 
-- **Gradle**: Automates build, test, and deployment processes.
+- **Gradle**: A powerful build automation tool that streamlines the compilation, testing, and deployment processes for software projects.
 
 
 ### Containerization

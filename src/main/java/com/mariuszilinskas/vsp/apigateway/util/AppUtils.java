@@ -13,9 +13,13 @@ public abstract class AppUtils {
 
     // ------------------------------------------------------
 
+    public static final String API_PREFIX = "/api/v1";
+
     public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd hh:mm:ss";
 
     public static final String ACCESS_TOKEN_NAME = "vsp_access";
+
+    public static final String USER_ID = "_USER_ID_";
 
     // ------------------------------------------------------
 
@@ -31,13 +35,31 @@ public abstract class AppUtils {
             "/users/password/reset"
     );
 
-    public static List<String> getPublicAccessPaths() {
-        return publicAccessPaths;
+    private static final List<String> adminAccessPaths = List.of(
+            "/users/admin/**",
+            "/user-profiles/admin/avatars/**"
+    );
+
+    public static String[] getPublicAccessPaths() {
+        return prefixPaths(publicAccessPaths, true);
+    }
+
+    public static String[] getAdminAccessPaths() {
+        return prefixPaths(adminAccessPaths, false);
+    }
+
+    private static String[] prefixPaths(List<String> paths, boolean skipRoot) {
+        return paths.stream()
+                .map(path -> (skipRoot && "/".equals(path)) ? path : AppUtils.API_PREFIX + path)
+                .toArray(String[]::new);
     }
 
     public static Predicate<ServerHttpRequest> isPublicPath =
-            request -> getPublicAccessPaths().stream()
-                    .map(uri -> uri.endsWith("/**") ? uri.substring(0, uri.length() - 2) : uri)
-                    .anyMatch(uri -> !"/".equals(uri) && request.getURI().getPath().contains(uri));
+            request -> {
+                String path = request.getURI().getPath().replace(API_PREFIX, "");
+                return publicAccessPaths.stream()
+                        .map(uri -> uri.endsWith("/**") ? uri.substring(0, uri.length() - 2) : uri)
+                        .anyMatch(uri -> path.equals(uri) || path.startsWith(uri + "/"));
+            };
 
 }

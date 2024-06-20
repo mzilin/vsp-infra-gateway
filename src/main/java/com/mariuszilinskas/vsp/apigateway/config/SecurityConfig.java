@@ -1,6 +1,8 @@
 package com.mariuszilinskas.vsp.apigateway.config;
 
+import com.mariuszilinskas.vsp.apigateway.enums.UserRole;
 import com.mariuszilinskas.vsp.apigateway.filter.AuthenticationFilter;
+import com.mariuszilinskas.vsp.apigateway.filter.UserIdFilter;
 import com.mariuszilinskas.vsp.apigateway.util.AppUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,18 +22,20 @@ public class SecurityConfig {
 
     private final CorsConfigurationSource corsConfigurationSource;
     private final AuthenticationFilter authenticationFilter;
+    private final UserIdFilter userIdFilter;
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+        return http.cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(authorize -> authorize
-                        .pathMatchers(AppUtils.getPublicAccessPaths().toArray(new String[0])).permitAll()
+                        .pathMatchers(AppUtils.getPublicAccessPaths()).permitAll()
+                        .pathMatchers(AppUtils.getAdminAccessPaths()).hasRole(UserRole.ADMIN.name())
                         .anyExchange().authenticated()
                 )
-                .addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION);
-        return http.build();
+                .addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+                .addFilterAfter(userIdFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+                .build();
     }
 
 }
