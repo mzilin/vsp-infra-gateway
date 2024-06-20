@@ -4,7 +4,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public abstract class AppUtils {
 
@@ -37,7 +36,8 @@ public abstract class AppUtils {
     );
 
     private static final List<String> adminAccessPaths = List.of(
-            "/users/admin/**"
+            "/users/admin/**",
+            "/user-profiles/admin/avatars/**"
     );
 
     public static String[] getPublicAccessPaths() {
