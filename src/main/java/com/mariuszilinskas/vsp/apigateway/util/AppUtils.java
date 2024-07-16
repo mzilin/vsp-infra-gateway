@@ -33,7 +33,7 @@ public abstract class AppUtils {
             "/auth/logout/" + USER_ID,
             "/auth/password/forgot",
             "/auth/password/reset",
-            "/users/register"
+            "/users/user/register"
     );
 
     private static final List<String> adminAccessPaths = List.of(
