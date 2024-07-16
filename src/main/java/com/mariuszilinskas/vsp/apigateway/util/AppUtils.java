@@ -30,7 +30,7 @@ public abstract class AppUtils {
             "/auth/credentials",
             "/auth/login",
             "/auth/token",
-            "/auth/logout/**",
+            "/auth/logout/" + USER_ID,
             "/auth/password/forgot",
             "/auth/password/reset",
             "/users/register"
