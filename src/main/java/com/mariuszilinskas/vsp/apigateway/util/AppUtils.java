@@ -30,9 +30,10 @@ public abstract class AppUtils {
             "/auth/credentials",
             "/auth/login",
             "/auth/token",
-            "/users/register",
-            "/users/password/forgot",
-            "/users/password/reset"
+            "/auth/logout/" + USER_ID,
+            "/auth/password/forgot",
+            "/auth/password/reset",
+            "/users/user/register"
     );
 
     private static final List<String> adminAccessPaths = List.of(

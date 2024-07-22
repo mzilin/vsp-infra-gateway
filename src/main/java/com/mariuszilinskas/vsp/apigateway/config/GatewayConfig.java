@@ -33,6 +33,10 @@ public class GatewayConfig {
                         .path(AppUtils.API_PREFIX + "/users/**")
                         .filters(f -> applyServiceFilters(f, "/users/(?<segment>.*)"))
                         .uri("lb://USERS"))
+                .route(p -> p
+                        .path(AppUtils.API_PREFIX + "/user-profiles/**")
+                        .filters(f -> applyServiceFilters(f, "/user-profiles/(?<segment>.*)"))
+                        .uri("lb://PROFILES"))
                 .build();
     }
 
