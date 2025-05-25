@@ -6,18 +6,18 @@ server:
 info:
   app:
     environment: DEV
-    name: API Gateway
-    description: API Gateway Local Instance
+    name: ${spring.application.name}
+    description: API Gateway - Local Instance
 
 # Spring application properties
 spring:
   application:
-    name: gateway
+    name: infra-gateway
   profiles:
     active: dev
   config:
     import:
-      - optional:configserver:${CONFIG_SERVER_URL}
+      - optional:configserver:discovery://config-server
       - optional:file:./env.properties
   cloud:
     gateway:
@@ -60,3 +60,5 @@ logging:
     root: INFO
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+    com.mariuszilinskas: DEBUG
