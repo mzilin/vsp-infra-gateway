@@ -1,0 +1,10 @@
+# Eureka configuration for CI
+eureka:
+  client:
+    fetchRegistry: false
+    registerWithEureka: false
+
+app:
+  allowedOrigins: http://localhost:3077
+  accessTokenSecret: dummy-secret
+  frontendBaseUrl: http://localhost:3077
