@@ -15,9 +15,9 @@ public class AppUtilsTest {
         assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/auth/credentials").build()));
         assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/auth/login").build()));
         assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/auth/token").build()));
-        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/users/register").build()));
-        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/users/password/forgot").build()));
-        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/users/password/reset").build()));
+        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/users/user/register").build()));
+        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/auth/password/forgot").build()));
+        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/auth/password/reset").build()));
     }
 
     @Test
@@ -28,9 +28,9 @@ public class AppUtilsTest {
         assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/auth/credentials").build()));
         assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/auth/login").build()));
         assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/auth/token").build()));
-        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/users/register").build()));
-        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/users/password/forgot").build()));
-        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/users/password/reset").build()));
+        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/users/user/register").build()));
+        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/auth/password/forgot").build()));
+        assertTrue(AppUtils.isPublicPath.test(MockServerHttpRequest.get("/api/v1/auth/password/reset").build()));
     }
 
     @Test
