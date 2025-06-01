@@ -94,22 +94,22 @@ Ensure you have the following installed on your machine:
 ### Installation & Running
 
 1. Clone the repository:
-    ```shell
+    ```bash
     git clone https://github.com/mzilin/vsp-infra-gateway.git
     ```
 
 2. Switch to the `main` branch:
-    ```shell
+    ```bash
     cd vsp-infra-gateway
     ```
 
 3. Build the project and run tests:
-    ```shell
+    ```bash
     ./gradlew clean build
     ```
 
 4. Start the service:
-    ```shell
+    ```bash
     ./gradlew bootRun
     ```
 
@@ -126,7 +126,7 @@ TBC
 This project uses a combination of **unit tests** and **integration tests** to ensure reliability, correctness and maintainability.
 
 To execute all tests, run:
-```shell
+```bash
 ./gradlew test
 ```
 
