@@ -59,8 +59,8 @@ This project relies on a set of key libraries and frameworks that support its co
 
 - **Spring Cloud**
   - **Gateway**: Reactive API gateway for routing, filtering and load balancing incoming requests.
-  - **Config**: Centralised management of external configurations, supporting environment-specific settings.
-  - **Netflix Eureka Client**: Enables service registration and discovery for dynamic scaling and resilience.
+  - **Config Client**: Integrates with a centralised Spring Cloud Config Server for dynamic configuration management.
+  - **Netflix Eureka Client**: Integrates with the Eureka Server for service registration and discovery.
 
 - **Security**
   - **JJWT** `0.11.5`: Simplifies secure JWT creation, signing, and parsing.
