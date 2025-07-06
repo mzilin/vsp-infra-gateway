@@ -18,6 +18,7 @@ For a complete system overview and links to all microservices, please refer to t
 * [Setting Up Your Environment](#setting-up-your-environment)
   * [Prerequisites](#prerequisites)
   * [Installation & Running](#installation--running)
+  * [Running with Docker](#running-with-docker)
   * [Environment Variables](#environment-variables)
 * [Testing](#testing)
 * [CI/CD & Deployment](#cicd--deployment)
@@ -59,8 +60,8 @@ This project relies on a set of key libraries and frameworks that support its co
 
 - **Spring Cloud**
   - **Gateway**: Reactive API gateway for routing, filtering and load balancing incoming requests.
-  - **Config**: Centralised management of external configurations, supporting environment-specific settings.
-  - **Netflix Eureka Client**: Enables service registration and discovery for dynamic scaling and resilience.
+  - **Config Client**: Integrates with a centralised Spring Cloud Config Server for dynamic configuration management.
+  - **Netflix Eureka Client**: Integrates with the Eureka Server for service registration and discovery.
 
 - **Security**
   - **JJWT** `0.11.5`: Simplifies secure JWT creation, signing, and parsing.
@@ -114,6 +115,22 @@ Ensure you have the following installed on your machine:
     ```
 
    The service will start on http://localhost:8080 using the Netty web server (default with Spring WebFlux).
+
+
+### Running with Docker
+
+1. Build the JAR:
+    ```bash
+   ./gradlew clean build
+    ```
+2. Build the Docker image:
+    ```bash
+   docker build -t vsp-infra-gateway:latest .
+    ```
+3. Run the container:
+    ```bash
+   docker run --rm --name vsp_gateway -p 8080:8080 vsp-infra-gateway:latest
+    ```
 
 
 ### Environment Variables
