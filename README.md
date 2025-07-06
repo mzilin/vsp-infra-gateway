@@ -18,6 +18,7 @@ For a complete system overview and links to all microservices, please refer to t
 * [Setting Up Your Environment](#setting-up-your-environment)
   * [Prerequisites](#prerequisites)
   * [Installation & Running](#installation--running)
+  * [Running with Docker](#running-with-docker)
   * [Environment Variables](#environment-variables)
 * [Testing](#testing)
 * [CI/CD & Deployment](#cicd--deployment)
@@ -114,6 +115,22 @@ Ensure you have the following installed on your machine:
     ```
 
    The service will start on http://localhost:8080 using the Netty web server (default with Spring WebFlux).
+
+
+### Running with Docker
+
+1. Build the JAR:
+    ```bash
+   ./gradlew clean build
+    ```
+2. Build the Docker image:
+    ```bash
+   docker build -t vsp-infra-gateway:latest .
+    ```
+3. Run the container:
+    ```bash
+   docker run --rm --name vsp_gateway -p 8080:8080 vsp-infra-gateway:latest
+    ```
 
 
 ### Environment Variables
